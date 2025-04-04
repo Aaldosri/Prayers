@@ -1,3 +1,28 @@
+body {
+  font-family: MuktaRegular;
+}
+
+* {
+  font-family: MuktaRegular !important;
+}
+
+/* FONTS */
+
+@font-face {
+  font-family: MuktaBold;
+  src: url(./Fonts/Rubik-Bold.ttf);
+}
+@font-face {
+  font-family: MuktaRegular;
+  src: url(./Fonts/Rubik-Regular.ttf);
+}
+@font-face {
+  font-family: MuktaLight;
+  src: url(./Fonts/Rubik-Light.ttf);
+}
+
+/* END FONTS */
+
 .main-div {
   width: 100vw;
   text-align: center;
@@ -17,7 +42,6 @@
   align-items: center; /* توحيد محاذاة العناصر */
   text-align: center;
   gap: 20px; /* تباعد بين العناصر */
-  align-items: flex-end;
 }
 
 .div-select h1 {

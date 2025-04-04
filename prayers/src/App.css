@@ -12,8 +12,13 @@
 }
 
 .div-select {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 أعمدة متساوية */
+  align-items: center; /* توحيد محاذاة العناصر */
   text-align: center;
-  display: flex;
-  justify-content: space-around;
+  gap: 20px; /* تباعد بين العناصر */
   align-items: flex-end;
+}
+
+.div-select h1 {
 }

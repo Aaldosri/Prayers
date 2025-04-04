@@ -27,39 +27,48 @@ const prayers = [
   {
     name: "الفجر",
     image: img1,
+    time: "", // سيتم تحديثه لاحقًا
   },
   {
     name: "الظهر",
     image: img2,
+    time: "",
   },
   {
     name: "العصر",
     image: img3,
+    time: "",
   },
   {
     name: "المغرب",
     image: img4,
+    time: "",
   },
   {
     name: "العشاء",
     image: img5,
+    time: "",
   },
 ];
 
 const cities = {
-  Riyadh:
-    "https://api.aladhan.com/v1/timingsByCity?city=Riyadh&country=SA&method=2",
-  Dammam:
-    "https://api.aladhan.com/v1/timingsByCity?city=Dammam&country=SA&method=2",
-  Mecca:
-    "https://api.aladhan.com/v1/timingsByCity?city=Mecca&country=SA&method=2",
-  Tabuk:
-    "https://api.aladhan.com/v1/timingsByCity?city=Tabuk&country=SA&method=2",
-  Abha: "https://api.aladhan.com/v1/timingsByCity?city=Abha&country=SA&method=2",
+  Riyadh: "https://api.aladhan.com/v1/timingsByCity?city=Riyadh&country=SA",
+  Dammam: "https://api.aladhan.com/v1/timingsByCity?city=Dammam&country=SA",
+  Mecca: "https://api.aladhan.com/v1/timingsByCity?city=Mecca&country=SA",
+  Tabuk: "https://api.aladhan.com/v1/timingsByCity?city=Tabuk&country=SA",
+  Abha: "https://api.aladhan.com/v1/timingsByCity?city=Abha&country=SA",
 };
 
 function App() {
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState("الرياض");
+
+  useEffect(() => {
+    axios.get;
+  });
+
+  function handleSelect(event) {
+    setSelectedCity(event.target.value);
+  }
 
   return (
     <>
@@ -68,19 +77,24 @@ function App() {
           <div>
             <h2>ابريل 4/4/2025</h2>
 
-            <h1>الرياض</h1>
+            <h1>{selectedCity}</h1>
           </div>
-          <Box
-            sx={{
-              minWidth: 200,
-              backgroundColor: "white",
-              padding: "7px",
-            }}
-          >
-            <FormControl fullWidth sx={{ color: "white" }}>
+          <Box sx={{}}>
+            <FormControl
+              fullWidth
+              sx={{
+                color: "white",
+                background: "white",
+                maxWidth: "50%",
+                backgroundColor: "white",
+                padding: "7px",
+                borderRadius: "10px",
+              }}
+            >
               <InputLabel
                 id="demo-simple-select-label"
                 sx={{
+                  margin: "7px",
                   "&.Mui-focused": {
                     color: "black", // تغيير اللون إلى الأسود عند التركيز
                   },
@@ -89,22 +103,23 @@ function App() {
                 المدينة
               </InputLabel>
               <Select
-                sx={{ color: "white" }}
+                sx={{ color: "white", maxWidth: "50%" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={selectedCity}
                 label="المدينة"
+                onChange={handleSelect}
                 sx={{
                   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                     borderColor: "black",
                   },
                 }}
               >
-                <MenuItem value={10}>🏙️ الرياض</MenuItem>
-                <MenuItem value={20}>🕋 مكة المكرمة</MenuItem>
-                <MenuItem value={30}>🌊 الدمام</MenuItem>
-                <MenuItem value={30}>⛰️ تبوك</MenuItem>
-                <MenuItem value={30}>🌿 ابها</MenuItem>
+                <MenuItem value="الرياض">🏙️ الرياض</MenuItem>
+                <MenuItem value="مكة المكرمة">🕋 مكة المكرمة</MenuItem>
+                <MenuItem value="الدمام">🌊 الدمام</MenuItem>
+                <MenuItem value="تبوك">⛰️ تبوك</MenuItem>
+                <MenuItem value="أبها">🌿 أبها</MenuItem>
               </Select>
             </FormControl>
           </Box>

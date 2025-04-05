@@ -1,6 +1,7 @@
 import React from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/ar";
+import moment from "moment";
 
 // Material UI
 import Box from "@mui/material/Box";
@@ -12,6 +13,7 @@ import Select from "@mui/material/Select";
 import { useState, useEffect } from "react";
 
 dayjs.locale("ar");
+moment.locale("dz");
 
 export default function Content({ selectedCity, handleSelect, timing }) {
   const [today, setToday] = useState();
@@ -28,7 +30,7 @@ export default function Content({ selectedCity, handleSelect, timing }) {
     setToday(now.format("dddd D MMMM YYYY | HH:mm"));
 
     let interval2 = setInterval(() => {
-      console.log("Calling Timer");
+      // console.log("Calling Timer");
       setUpCountDownTimer();
     }, 500);
 
@@ -39,13 +41,41 @@ export default function Content({ selectedCity, handleSelect, timing }) {
   }, []);
 
   function setUpCountDownTimer() {
-    const dayjsNow = dayjs();
+    const momentNow = moment();
 
     let nextPrayer = null;
 
+    if (
+      momentNow.isAfter(dayjs(timing["Fajr"], "hh:mm")) &&
+      momentNow.isBefore(dayjs(timing["Duhur"], "hh:mm"))
+    ) {
+      console.log("next Prayer is Duhur");
+    } else if (
+      momentNow.isAfter(dayjs(timing["Duhur"], "hh:mm")) &&
+      momentNow.isBefore(dayjs(timing["Asr"], "hh:mm"))
+    ) {
+      console.log("next Prayer is Asr");
+    } else if (
+      momentNow.isAfter(dayjs(timing["Asr"], "hh:mm")) &&
+      momentNow.isBefore(dayjs(timing["Maghrib"], "hh:mm"))
+    ) {
+      console.log("next Prayer is Asr");
+    } else if (
+      momentNow.isAfter(dayjs(timing["Maghrib"], "hh:mm")) &&
+      momentNow.isBefore(dayjs(timing["Isha"], "hh:mm"))
+    ) {
+      console.log("next Prayer is Asr");
+    } else if (
+      momentNow.isAfter(dayjs(timing["Isha"], "hh:mm")) &&
+      momentNow.isBefore(dayjs(timing["Fajr"], "hh:mm"))
+    ) {
+      console.log("next Prayer is Asr");
+    }
+
+    // ضبط الوقت الحالي بحيث يكون مع التاريخ الحالي فقط، ولا يحتوي على ثواني أو ملي ثانية.
     const Isha = timing["Isha"];
-    const IshaMoment = dayjs(Isha, "hh:mm");
-    console.log(dayjsNow.isAfter(IshaMoment));
+    const IshaMoment = moment(Isha, "hh:mm");
+    console.log(momentNow.isAfter(IshaMoment));
   }
   return (
     <>

@@ -27,12 +27,26 @@ export default function Content({ selectedCity, handleSelect, timing }) {
     const now = dayjs();
     setToday(now.format("dddd D MMMM YYYY | HH:mm"));
 
-    setInterval(() => {
-      setTimer(timer - 1);
+    let interval2 = setInterval(() => {
+      console.log("Calling Timer");
+      setUpCountDownTimer();
     }, 500);
 
-    return () => clearInterval(interval); // تنظيف
+    return () => {
+      clearInterval(interval);
+      clearInterval(interval2);
+    };
   }, []);
+
+  function setUpCountDownTimer() {
+    const dayjsNow = dayjs();
+
+    let nextPrayer = null;
+
+    const Isha = timing["Isha"];
+    const IshaMoment = dayjs(Isha, "hh:mm");
+    console.log(dayjsNow.isAfter(IshaMoment));
+  }
   return (
     <>
       <div className="div-select">

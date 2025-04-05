@@ -43,8 +43,13 @@ const prayers = [
 
 function App() {
   const [selectedCity, setSelectedCity] = useState("الرياض");
-  const [timing, setTiming] = useState(null);
-
+  const [timing, setTiming] = useState({
+    Fajr: "05:00",
+    Dhuhr: "12:00",
+    Asr: "15:30",
+    Maghrib: "18:45",
+    Isha: "20:00",
+  });
   useEffect(() => {
     const fetchData = async () => {
       const getTiming = `https://api.aladhan.com/v1/timingsByCity?city=${selectedCity}&country=SA`;

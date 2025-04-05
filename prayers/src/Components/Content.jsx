@@ -1,4 +1,6 @@
 import React from "react";
+import dayjs from "dayjs";
+import "dayjs/locale/ar";
 
 // Material UI
 import Box from "@mui/material/Box";
@@ -7,14 +9,38 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export default function Content({ selectedCity, handleSelect }) {
+import { useState, useEffect } from "react";
+
+dayjs.locale("ar");
+
+export default function Content({ selectedCity, handleSelect, timing }) {
+  const [today, setToday] = useState();
+  const [timer, setTimer] = useState(10);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = dayjs();
+      setToday(now.format("dddd D MMMM YYYY | HH:mm")); // تحديث الوقت المعروض
+    }, 60000); // كل دقيقة
+
+    // تحديث أولي قبل الانتظار لأول دقيقة
+    const now = dayjs();
+    setToday(now.format("dddd D MMMM YYYY | HH:mm"));
+
+    setInterval(() => {
+      setTimer(timer - 1);
+    }, 500);
+
+    return () => clearInterval(interval); // تنظيف
+  }, []);
   return (
     <>
       <div className="div-select">
         <div>
-          <h2>ابريل 4/4/2025</h2>
+          <h2> {today}</h2>
 
           <h1>{selectedCity}</h1>
+          <h2>{timer}</h2>
         </div>
         <Box sx={{}}>
           <FormControl

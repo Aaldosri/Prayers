@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 // External Libraries
 import axios from "axios";
-import dayjs from "dayjs";
 
 // Img
 import img1 from "./img/Fajr.png";
@@ -45,24 +44,13 @@ const prayers = [
 function App() {
   const [selectedCity, setSelectedCity] = useState("الرياض");
   const [timing, setTiming] = useState(null);
-  const [prayersTimes, setPrayersTimes] = useState([
-    { name: "الفجر", time: "" },
-    { name: "الظهر", time: "" },
-    { name: "العصر", time: "" },
-    { name: "المغرب", time: "" },
-    { name: "العشاء", time: "" },
-  ]);
 
   useEffect(() => {
     const fetchData = async () => {
       const getTiming = `https://api.aladhan.com/v1/timingsByCity?city=${selectedCity}&country=SA`;
 
       const response = await axios.get(getTiming);
-
       const timing = response.data.data.timings;
-
-      console.log(response);
-      console.log(timing);
 
       setTiming({
         الفجر: timing.Fajr,
@@ -83,7 +71,11 @@ function App() {
   return (
     <>
       <div className="main-div" dir="rtl">
-        <Content selectedCity={selectedCity} handleSelect={handleSelect} />
+        <Content
+          selectedCity={selectedCity}
+          handleSelect={handleSelect}
+          timing={timing}
+        />
         <hr style={{ width: "80%", marginBottom: "30px" }}></hr>
 
         <section>

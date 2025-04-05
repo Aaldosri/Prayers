@@ -22,7 +22,13 @@ export default function Prayers({ prayers, timing }) {
                 <Typography gutterBottom variant="h4" component="div">
                   {prayer.name}
                 </Typography>
-                <Typography variant="h2" sx={{ color: "text.secondary" }}>
+                <Typography
+                  className="div-timing"
+                  variant="h2"
+                  sx={{
+                    fontSize: !timing ? "1.5rem" : undefined, // يصغر الخط فقط وقت الانتظار
+                  }}
+                >
                   {timing
                     ? timing[prayer.name] || "التوقيت غير متوفر"
                     : "جارٍ تحميل التوقيت"}

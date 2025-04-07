@@ -43,6 +43,7 @@ const prayers = [
 
 function App() {
   const [selectedCity, setSelectedCity] = useState("الرياض");
+
   const [timing, setTiming] = useState({
     Fajr: "05:00",
     Dhuhr: "12:00",

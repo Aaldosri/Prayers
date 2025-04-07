@@ -26,11 +26,12 @@ export default function Prayers({ prayers, timing }) {
                   className="div-timing"
                   variant="h2"
                   sx={{
-                    fontSize: !timing ? "1.5rem" : undefined, // يصغر الخط فقط وقت الانتظار
+                    fontSize:
+                      !timing || !timing[prayer.name] ? "1.7rem" : undefined, // يصغر الخط فقط إذا ما فيه وقت
                   }}
                 >
                   {timing
-                    ? timing[prayer.name] || "التوقيت غير متوفر"
+                    ? timing[prayer.name] || "جارٍ تحميل التوقيت"
                     : "جارٍ تحميل التوقيت"}
                 </Typography>
               </CardContent>

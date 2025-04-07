@@ -18,6 +18,30 @@ moment.locale("dz");
 export default function Content({ selectedCity, handleSelect, timing }) {
   const [today, setToday] = useState();
   const [timer, setTimer] = useState(10);
+  const [nextPrayerIndex, setNextPrayerIndex] = useState(2);
+
+  const prayersArray = [
+    {
+      key: "Fajr",
+      displayName: "الفجر",
+    },
+    {
+      key: "Duhur",
+      displayName: "الظهر",
+    },
+    {
+      key: "Asr",
+      displayName: "العصر",
+    },
+    {
+      key: "Maghrib",
+      displayName: "المغرب",
+    },
+    {
+      key: "Isha",
+      displayName: "العشاء",
+    },
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,39 +67,35 @@ export default function Content({ selectedCity, handleSelect, timing }) {
   function setUpCountDownTimer() {
     const momentNow = moment();
 
-    let nextPrayer = null;
+    let prayerIndex = 2;
 
     if (
       momentNow.isAfter(dayjs(timing["Fajr"], "hh:mm")) &&
       momentNow.isBefore(dayjs(timing["Duhur"], "hh:mm"))
     ) {
-      console.log("next Prayer is Duhur");
+      prayerIndex = 1;
     } else if (
       momentNow.isAfter(dayjs(timing["Duhur"], "hh:mm")) &&
       momentNow.isBefore(dayjs(timing["Asr"], "hh:mm"))
     ) {
-      console.log("next Prayer is Asr");
+      prayerIndex = 2;
     } else if (
       momentNow.isAfter(dayjs(timing["Asr"], "hh:mm")) &&
       momentNow.isBefore(dayjs(timing["Maghrib"], "hh:mm"))
     ) {
-      console.log("next Prayer is Asr");
+      prayerIndex = 3;
     } else if (
       momentNow.isAfter(dayjs(timing["Maghrib"], "hh:mm")) &&
       momentNow.isBefore(dayjs(timing["Isha"], "hh:mm"))
     ) {
-      console.log("next Prayer is Asr");
-    } else if (
-      momentNow.isAfter(dayjs(timing["Isha"], "hh:mm")) &&
-      momentNow.isBefore(dayjs(timing["Fajr"], "hh:mm"))
-    ) {
-      console.log("next Prayer is Asr");
+      prayerIndex = 4;
+    } else {
+      prayerIndex = 1;
     }
 
-    // ضبط الوقت الحالي بحيث يكون مع التاريخ الحالي فقط، ولا يحتوي على ثواني أو ملي ثانية.
-    const Isha = timing["Isha"];
-    const IshaMoment = moment(Isha, "hh:mm");
-    console.log(momentNow.isAfter(IshaMoment));
+    setNextPrayerIndex(prayerIndex);
+
+    console.log(momentNow.isBefore(dayjs(timing["Fajr"], "hh:mm")));
   }
   return (
     <>
@@ -131,7 +151,7 @@ export default function Content({ selectedCity, handleSelect, timing }) {
           </FormControl>
         </Box>
         <div>
-          <h1>متبقي على صلاة </h1>
+          <h1>متبقي على صلاة {prayersArray[nextPrayerIndex].displayName}</h1>
           <h1>00:07:33</h1>
         </div>
       </div>

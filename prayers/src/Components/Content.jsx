@@ -21,26 +21,11 @@ export default function Content({ selectedCity, handleSelect, timing }) {
   const [nextPrayerIndex, setNextPrayerIndex] = useState(2);
 
   const prayersArray = [
-    {
-      key: "Fajr",
-      displayName: "الفجر",
-    },
-    {
-      key: "Duhur",
-      displayName: "الظهر",
-    },
-    {
-      key: "Asr",
-      displayName: "العصر",
-    },
-    {
-      key: "Maghrib",
-      displayName: "المغرب",
-    },
-    {
-      key: "Isha",
-      displayName: "العشاء",
-    },
+    { key: "Fajr", displayName: "الفجر" },
+    { key: "Dhuhr", displayName: "الظهر" },
+    { key: "Asr", displayName: "العصر" },
+    { key: "Maghrib", displayName: "المغرب" },
+    { key: "Isha", displayName: "العشاء" },
   ];
 
   useEffect(() => {
@@ -56,7 +41,7 @@ export default function Content({ selectedCity, handleSelect, timing }) {
     let interval2 = setInterval(() => {
       // console.log("Calling Timer");
       setUpCountDownTimer();
-    }, 500);
+    }, 1000);
 
     return () => {
       clearInterval(interval);
@@ -70,33 +55,43 @@ export default function Content({ selectedCity, handleSelect, timing }) {
     let prayerIndex = 2;
 
     if (
-      momentNow.isAfter(dayjs(timing["Fajr"], "hh:mm")) &&
-      momentNow.isBefore(dayjs(timing["Duhur"], "hh:mm"))
+      momentNow.isAfter(moment(timing["Fajr"], "hh:mm")) &&
+      momentNow.isBefore(moment(timing["Dhuhr"], "hh:mm"))
     ) {
       prayerIndex = 1;
     } else if (
-      momentNow.isAfter(dayjs(timing["Duhur"], "hh:mm")) &&
-      momentNow.isBefore(dayjs(timing["Asr"], "hh:mm"))
+      momentNow.isAfter(moment(timing["Dhuhr"], "hh:mm")) &&
+      momentNow.isBefore(moment(timing["Asr"], "hh:mm"))
     ) {
       prayerIndex = 2;
     } else if (
-      momentNow.isAfter(dayjs(timing["Asr"], "hh:mm")) &&
-      momentNow.isBefore(dayjs(timing["Maghrib"], "hh:mm"))
+      momentNow.isAfter(moment(timing["Asr"], "hh:mm")) &&
+      momentNow.isBefore(moment(timing["Maghrib"], "hh:mm"))
     ) {
       prayerIndex = 3;
     } else if (
-      momentNow.isAfter(dayjs(timing["Maghrib"], "hh:mm")) &&
-      momentNow.isBefore(dayjs(timing["Isha"], "hh:mm"))
+      momentNow.isAfter(moment(timing["Maghrib"], "hh:mm")) &&
+      momentNow.isBefore(moment(timing["Isha"], "hh:mm"))
     ) {
       prayerIndex = 4;
     } else {
-      prayerIndex = 1;
+      prayerIndex = 0;
     }
 
     setNextPrayerIndex(prayerIndex);
 
-    console.log(momentNow.isBefore(dayjs(timing["Fajr"], "hh:mm")));
+    // Now After Knowing what the next Prayer is we can setup the coutdown timer by getting prayer's time
+
+    const nextPrayerObject = prayersArray[prayerIndex];
+    const nextPrayerTime = timing[nextPrayerObject.key];
+
+    // const remainingTime = momentNow.diff(moment(nextPrayerTime, "hh:mm"));
+
+    // console.log(remainingTime);
+    // console.log("next prayer time is", nextPrayerTime);
+    // console.log(momentNow.isBefore(dayjs(timing["Fajr"], "hh:mm")));
   }
+
   return (
     <>
       <div className="div-select">

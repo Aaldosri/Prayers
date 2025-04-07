@@ -14,31 +14,11 @@ import Prayers from "./Components/Prayers";
 import Content from "./Components/Content";
 
 const prayers = [
-  {
-    name: "الفجر",
-    image: img1,
-    time: "", // سيتم تحديثه لاحقًا
-  },
-  {
-    name: "الظهر",
-    image: img2,
-    time: "",
-  },
-  {
-    name: "العصر",
-    image: img3,
-    time: "",
-  },
-  {
-    name: "المغرب",
-    image: img4,
-    time: "",
-  },
-  {
-    name: "العشاء",
-    image: img5,
-    time: "",
-  },
+  { name: "الفجر", key: "Fajr", image: img1 },
+  { name: "الظهر", key: "Dhuhr", image: img2 },
+  { name: "العصر", key: "Asr", image: img3 },
+  { name: "المغرب", key: "Maghrib", image: img4 },
+  { name: "العشاء", key: "Isha", image: img5 },
 ];
 
 function App() {
@@ -56,15 +36,16 @@ function App() {
       const getTiming = `https://api.aladhan.com/v1/timingsByCity?city=${selectedCity}&country=SA`;
 
       const response = await axios.get(getTiming);
-      const timing = response.data.data.timings;
-
+      const timings = response.data.data.timings;
       setTiming({
-        الفجر: timing.Fajr,
-        الظهر: timing.Dhuhr,
-        العصر: timing.Asr,
-        المغرب: timing.Maghrib,
-        العشاء: timing.Isha,
+        الفجر: timings.Fajr,
+        الظهر: timings.Dhuhr,
+        العصر: timings.Asr,
+        المغرب: timings.Maghrib,
+        العشاء: timings.Isha,
       });
+
+      console.log(timings);
     };
 
     fetchData();

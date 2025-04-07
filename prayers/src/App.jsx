@@ -38,14 +38,12 @@ function App() {
       const response = await axios.get(getTiming);
       const timings = response.data.data.timings;
       setTiming({
-        الفجر: timings.Fajr,
-        الظهر: timings.Dhuhr,
-        العصر: timings.Asr,
-        المغرب: timings.Maghrib,
-        العشاء: timings.Isha,
+        Fajr: timings.Fajr,
+        Dhuhr: timings.Dhuhr,
+        Asr: timings.Asr,
+        Maghrib: timings.Maghrib,
+        Isha: timings.Isha,
       });
-
-      console.log(timings);
     };
 
     fetchData();

@@ -27,11 +27,11 @@ export default function Prayers({ prayers, timing }) {
                   variant="h2"
                   sx={{
                     fontSize:
-                      !timing || !timing[prayer.name] ? "1.7rem" : undefined, // يصغر الخط فقط إذا ما فيه وقت
+                      !timing || !timing[prayer.key] ? "1.7rem" : undefined, // يصغر الخط فقط إذا ما فيه وقت
                   }}
                 >
                   {timing
-                    ? timing[prayer.name] || "جارٍ تحميل التوقيت"
+                    ? timing[prayer.key] || "جارٍ تحميل التوقيت"
                     : "جارٍ تحميل التوقيت"}
                 </Typography>
               </CardContent>

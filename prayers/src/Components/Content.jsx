@@ -47,7 +47,7 @@ export default function Content({ selectedCity, handleSelect, timing }) {
       clearInterval(interval);
       clearInterval(interval2);
     };
-  }, []);
+  }, [timing]);
 
   function setUpCountDownTimer() {
     const momentNow = moment();
@@ -85,10 +85,26 @@ export default function Content({ selectedCity, handleSelect, timing }) {
     const nextPrayerObject = prayersArray[prayerIndex];
     const nextPrayerTime = timing[nextPrayerObject.key];
 
-    // const remainingTime = momentNow.diff(moment(nextPrayerTime, "hh:mm"));
+    const remainingTime = moment(nextPrayerTime, "hh:mm").diff(momentNow);
+
+    if (remainingTime < 0) {
+      const midNightDiff = moment("00:00", "hh:mm");
+      console.log("mid night iss ", midNightDiff.format("hh:mm"));
+      console.log(midNightDiff);
+      console.log(remainingTime);
+    }
+
+    console.log(remainingTime);
+    const durationRemainingTime = moment.duration(remainingTime);
+
+    console.log(
+      durationRemainingTime.hours(),
+      durationRemainingTime.minutes(),
+      durationRemainingTime.seconds()
+    );
 
     // console.log(remainingTime);
-    // console.log("next prayer time is", nextPrayerTime);
+    console.log("next prayer time is", nextPrayerTime);
     // console.log(momentNow.isBefore(dayjs(timing["Fajr"], "hh:mm")));
   }
 

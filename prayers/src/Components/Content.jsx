@@ -17,8 +17,10 @@ moment.locale("dz");
 
 export default function Content({ selectedCity, handleSelect, timing }) {
   const [today, setToday] = useState();
-  const [timer, setTimer] = useState(10);
-  const [nextPrayerIndex, setNextPrayerIndex] = useState(2);
+  const [nextPrayerIndex, setNextPrayerIndex] = useState(null);
+
+  const [remainingTime, setRemainingTime] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const prayersArray = [
     { key: "Fajr", displayName: "الفجر" },
@@ -42,6 +44,8 @@ export default function Content({ selectedCity, handleSelect, timing }) {
       // console.log("Calling Timer");
       setUpCountDownTimer();
     }, 1000);
+
+    setIsLoading(false); // بعد تحميل البيانات
 
     return () => {
       clearInterval(interval);
@@ -84,20 +88,29 @@ export default function Content({ selectedCity, handleSelect, timing }) {
 
     const nextPrayerObject = prayersArray[prayerIndex];
     const nextPrayerTime = timing[nextPrayerObject.key];
+    const neaxtPrayerTimeMoment = moment(nextPrayerIndex, "hh:mm");
 
-    const remainingTime = moment(nextPrayerTime, "hh:mm").diff(momentNow);
+    let remainingTime = moment(nextPrayerTime, "hh:mm").diff(momentNow);
 
     if (remainingTime < 0) {
-      const midNightDiff = moment("00:00", "hh:mm");
-      console.log("mid night iss ", midNightDiff.format("hh:mm"));
-      console.log(midNightDiff);
-      console.log(remainingTime);
+      const midNightDiff = moment("23:59:59", "hh:mm:ss").diff(momentNow);
+      const FajrToMidnightDiff = neaxtPrayerTimeMoment.diff(
+        moment("00:00:00", "hh:mm:ss")
+      );
+
+      const totalDiffernce = midNightDiff + FajrToMidnightDiff;
+
+      remainingTime = totalDiffernce;
     }
 
     console.log(remainingTime);
     const durationRemainingTime = moment.duration(remainingTime);
 
+    setRemainingTime(
+      `  ${durationRemainingTime.seconds()} : ${durationRemainingTime.minutes()} :  ${durationRemainingTime.hours()} `
+    );
     console.log(
+      "duration isss",
       durationRemainingTime.hours(),
       durationRemainingTime.minutes(),
       durationRemainingTime.seconds()
@@ -115,7 +128,6 @@ export default function Content({ selectedCity, handleSelect, timing }) {
           <h2> {today}</h2>
 
           <h1>{selectedCity}</h1>
-          <h2>{timer}</h2>
         </div>
         <Box sx={{}}>
           <FormControl
@@ -162,8 +174,12 @@ export default function Content({ selectedCity, handleSelect, timing }) {
           </FormControl>
         </Box>
         <div>
-          <h1>متبقي على صلاة {prayersArray[nextPrayerIndex].displayName}</h1>
-          <h1>00:07:33</h1>
+          <h1>
+            {nextPrayerIndex !== null
+              ? `متبقي على صلاة ${prayersArray[nextPrayerIndex].displayName}`
+              : "جار تحميل الصلاة القادمة"}
+          </h1>
+          <h1>{remainingTime ? remainingTime : "جار تحميل الوقت"}</h1>
         </div>
       </div>
     </>

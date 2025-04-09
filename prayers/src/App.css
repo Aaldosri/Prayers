@@ -50,3 +50,15 @@ body {
   text-align: center;
   gap: 20px; /* تباعد بين العناصر */
 }
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .div-select {
+    grid-template-columns: 1fr; /* عمود واحد فقط عند تصغير الشاشة */
+  }
+  .div-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}

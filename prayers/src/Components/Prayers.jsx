@@ -14,7 +14,7 @@ export default function Prayers({ prayers, timing }) {
             <Card key={index} sx={{ maxWidth: 345 }}>
               <CardMedia
                 component="img"
-                sx={{ width: 240, height: 240, objectFit: "cover" }} // الحفاظ على الشكل المربع
+                sx={{ width: 240, height: 240, objectFit: "cover" }}
                 image={prayer.image}
                 alt={prayer.name}
               />
@@ -27,7 +27,7 @@ export default function Prayers({ prayers, timing }) {
                   variant="h2"
                   sx={{
                     fontSize:
-                      !timing || !timing[prayer.key] ? "1.7rem" : undefined, // يصغر الخط فقط إذا ما فيه وقت
+                      !timing || !timing[prayer.key] ? "1.7rem" : undefined,
                   }}
                 >
                   {timing

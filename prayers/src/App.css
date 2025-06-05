@@ -45,20 +45,21 @@ body {
 
 .div-select {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 أعمدة متساوية */
-  align-items: center; /* توحيد محاذاة العناصر */
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
   text-align: center;
-  gap: 20px; /* تباعد بين العناصر */
+  gap: 20px;
 }
 
 /* RESPONSIVE */
 
 @media (max-width: 768px) {
   .div-select {
-    grid-template-columns: 1fr; /* عمود واحد فقط عند تصغير الشاشة */
+    grid-template-columns: 1fr;
   }
   .div-cards {
     flex-direction: column;
     align-items: center;
+    margin-bottom: 30px;
   }
 }

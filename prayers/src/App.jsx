@@ -25,11 +25,11 @@ function App() {
   const [selectedCity, setSelectedCity] = useState("الرياض");
 
   const [timing, setTiming] = useState({
-    Fajr: "05:00",
-    Dhuhr: "12:00",
-    Asr: "15:30",
-    Maghrib: "18:45",
-    Isha: "20:00",
+    Fajr: "00:00",
+    Dhuhr: "00:00",
+    Asr: "00:00",
+    Maghrib: "00:00",
+    Isha: "00:00",
   });
   useEffect(() => {
     const fetchData = async () => {

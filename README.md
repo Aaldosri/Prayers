@@ -21,7 +21,6 @@ Prayers is a website that provides accurate prayer times for five Saudi cities u
 ## 🛠️ Technologies Used
 
 - React  
-- Vite  
 - Day.js  
 - Axios  
 - Tailwind CSS  

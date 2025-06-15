@@ -55,7 +55,13 @@ body {
 
 /* RESPONSIVE */
 
-@media (max-width: 768px) {
+@media (max-width: 1315px) {
+  .div-cards {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 1024px) {
   .div-select {
     grid-template-columns: 1fr;
   }
